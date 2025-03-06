@@ -55,7 +55,7 @@ h2 {
 
 .filmes {
     display: flex;
-    justify-content: flex-start; /* Ajuste para alinhar as imagens à esquerda */
+    justify-content: center; /* Ajustado para centralizar as imagens */
     flex-wrap: wrap;
     gap: 20px; /* Espaçamento entre as imagens */
 }
@@ -64,7 +64,7 @@ h2 {
     background-color: #fff;
     border-radius: 8px;
     overflow: hidden;
-    width: 280px; /* Largura fixa para filmes, pode ser alterado */
+    width: 280px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     margin: 10px;
@@ -117,11 +117,7 @@ footer {
 /* Responsividade para telas maiores */
 @media (min-width: 1200px) {
     .filmes {
-        justify-content: flex-start; /* Alinhamento à esquerda em telas grandes */
-    }
-
-    .filme {
-        flex: 1 1 25%; /* Cada filme ocupa 25% da tela */
+        justify-content: space-evenly; /* Para telas grandes, distribui as imagens de forma mais balanceada */
     }
 }
 
