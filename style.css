@@ -55,19 +55,19 @@ h2 {
 
 .filmes {
     display: flex;
+    justify-content: flex-start; /* Ajuste para alinhar as imagens à esquerda */
     flex-wrap: wrap;
-    justify-content: flex-start; /* Ajuste para manter a distribuição sem grandes vazios */
-    gap: 20px; /* Ajuste de espaçamento entre as imagens */
+    gap: 20px; /* Espaçamento entre as imagens */
 }
 
 .filme {
     background-color: #fff;
     border-radius: 8px;
     overflow: hidden;
-    width: 280px; /* Largura fixa para garantir um tamanho consistente */
+    width: 280px; /* Largura fixa para filmes, pode ser alterado */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
-    margin-bottom: 20px;
+    margin: 10px;
 }
 
 .filme:hover {
@@ -117,12 +117,11 @@ footer {
 /* Responsividade para telas maiores */
 @media (min-width: 1200px) {
     .filmes {
-        justify-content: flex-start; /* Mantém as imagens alinhadas à esquerda sem grandes espaços */
+        justify-content: flex-start; /* Alinhamento à esquerda em telas grandes */
     }
 
     .filme {
         flex: 1 1 25%; /* Cada filme ocupa 25% da tela */
-        min-width: 280px; /* Garante que a largura mínima seja 280px */
     }
 }
 
@@ -134,7 +133,6 @@ footer {
 
     .filme {
         flex: 1 1 45%; /* Ajusta para 45% da largura da tela */
-        min-width: 250px; /* Garante que cada filme tenha uma largura mínima */
     }
 }
 
@@ -146,6 +144,5 @@ footer {
 
     .filme {
         flex: 1 1 90%; /* Ajusta para 90% da largura da tela */
-        min-width: 200px; /* Garante que o tamanho mínimo seja adequado para telas pequenas */
     }
 }
