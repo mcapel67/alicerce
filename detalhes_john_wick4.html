@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Filme - Matrix Resurrections</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Adicionando um estilo básico para a página de detalhes */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .movie-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .movie-header img {
+            width: 300px;
+            height: 450px;
+            margin-right: 20px;
+        }
+
+        .movie-info {
+            max-width: 800px;
+        }
+
+        .movie-info h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+
+        .movie-info p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .rating {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #ffcc00;
+        }
+
+        .synopsis {
+            margin-top: 20px;
+        }
+
+        .synopsis h2 {
+            font-size: 24px;
+        }
+
+        .synopsis p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        /* Estilo para o trailer */
+        .trailer {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .trailer iframe {
+            width: 100%;
+            height: 500px;
+            max-width: 800px;
+            border: none;
+        }
+
+        .cast {
+            margin-top: 40px;
+        }
+
+        .cast h2 {
+            font-size: 24px;
+        }
+
+        .cast-list {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cast-item {
+            text-align: center;
+        }
+
+        .cast-item img {
+            width: 150px;
+            height: 225px;
+            border-radius: 10px;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .back-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Film Reviews</h1>
+        <p>Detalhes do filme: John Wick 4: Baba Yaga (2023)</p>
+    </header>
+    <div class="container">
+        <div class="movie-header">
+            <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/dHQEM7aqsvBQnPmjdyTgb5fUG5q.jpg" alt="John Wick 4">
+            <div class="movie-info">
+                <h1>John Wick 4</h1>
+                <div class="rating">
+                    <strong>Classificação: </strong> 6.8 / 10
+                </div>
+                <p><strong>Lançamento:</strong> 2023</p>
+                <p><strong>Gênero:</strong> Ação, Crime</p>
+                <a href="https://www.themoviedb.org/movie/603692-john-wick-chapter-4" class="back-button" target="_blank">Ver no TMDb</a>
+            </div>
+        </div>
+        <div class="synopsis">
+            <h2>Sinopse</h2>
+            <p>John Wick 4: Baba Yaga (2023) é o quarto filme Com o preço por sua cabeça cada vez maior, John Wick leva sua luta contra a alta mesa global enquanto procura os jogadores mais poderosos do submundo, de Nova York a Paris, de Osaka a Berlim.</p>
+        </div>
+        <!-- Seção do Trailer -->
+        <div class="trailer">
+            <h2>Assista ao Trailer</h2>
+            <!-- Incorporação do trailer do YouTube -->
+            <iframe src="https://www.youtube.com/watch?v=gZtmzT9Wgrw&pp=ygUdSm9obiBXaWNrIDQ6IEJhYmEgWWFnYSAoMjAyMyk%3D" title="John Wick 4: Baba Yaga Trailer" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="cast">
+            <h2>Elenco Principal</h2>
+            <div class="cast-list">
+                <div class="cast-item">
+                    <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/8RZLOyYGsoRe9p44q3xin9QkMHv.jpg" alt="Keanu Reeves">
+                    <p>Keanu Reeves</p>
+                    <p>John Wick
+                   </p>
+                </div>
+                <div class="cast-item">
+                    <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/hTlhrrZMj8hZVvD17j4KyAFWBHc.jpg" alt="Donnie Yen">
+                    <p>Donnie Yen</p>
+                    <p>Caine</p>
+                </div>
+                <div class="cast-item">
+                    <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/wGQidITqyDl4Igmq9TCQjRpegsk.jpg" alt="Bill Skarsgård">
+                    <p>Bill Skarsgård</p>
+                    <p>Marquis</p>
+                </div>
+            </div>
+        </div>
+        <a href="index.html" class="back-button">Voltar</a>
+    </div>
+</body>
+</html>

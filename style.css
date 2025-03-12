@@ -55,9 +55,9 @@ h2 {
 
 .filmes {
     display: flex;
-    justify-content: center; /* Ajustado para centralizar as imagens */
+    justify-content: space-around;
     flex-wrap: wrap;
-    gap: 20px; /* Espaçamento entre as imagens */
+    gap: 20px;
 }
 
 .filme {
@@ -67,7 +67,6 @@ h2 {
     width: 280px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
-    margin: 10px;
 }
 
 .filme:hover {
@@ -112,33 +111,4 @@ footer {
     text-align: center;
     padding: 20px;
     margin-top: auto; /* Isso garante que o footer vá para o rodapé */
-}
-
-/* Responsividade para telas maiores */
-@media (min-width: 1200px) {
-    .filmes {
-        justify-content: space-evenly; /* Para telas grandes, distribui as imagens de forma mais balanceada */
-    }
-}
-
-/* Responsividade para telas médias (exemplo tablets) */
-@media (max-width: 768px) {
-    .filmes {
-        justify-content: space-between; /* Ajuste para telas médias */
-    }
-
-    .filme {
-        flex: 1 1 45%; /* Ajusta para 45% da largura da tela */
-    }
-}
-
-/* Responsividade para telas pequenas (celulares) */
-@media (max-width: 480px) {
-    .filmes {
-        justify-content: center; /* Ajuste para telas pequenas */
-    }
-
-    .filme {
-        flex: 1 1 90%; /* Ajusta para 90% da largura da tela */
-    }
 }
