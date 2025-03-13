@@ -113,3 +113,64 @@ header {
 .back-button:hover {
     background-color: #555;
 }
+
+/* Ajustes para garantir o alinhamento das imagens nas categorias */
+.categoria {
+    margin: 40px 0;
+    padding: 0 20px;
+}
+
+.categoria h2 {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.filmes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Para garantir que as imagens fiquem centralizadas */
+}
+
+.filme {
+    width: 250px; /* Ajuste para garantir que todas as imagens tenham o mesmo tamanho */
+    text-align: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.filme img {
+    width: 100%;
+    height: auto; /* Garantir que as imagens mantenham a proporção */
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+}
+
+.filme h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.filme p {
+    font-size: 14px;
+    color: #666;
+}
+
+.filme .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.filme .btn:hover {
+    background-color: #555;
+}
