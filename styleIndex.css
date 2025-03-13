@@ -1,0 +1,173 @@
+/* Estilos Gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header .logo h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+header .logo p {
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+header .patrocinio {
+    margin-top: 10px;
+    font-size: 1rem;
+}
+
+header nav {
+    margin-top: 15px;
+}
+
+header nav ul {
+    list-style-type: none;
+}
+
+header nav ul li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+
+header nav ul li a:hover {
+    color: #ff0;
+}
+
+/* Corpo Principal */
+main {
+    padding: 40px 10%;
+}
+
+.categoria {
+    margin-bottom: 40px;
+}
+
+.categoria h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.filmes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-around;
+}
+
+.filme {
+    width: 30%;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.filme img {
+    width: 100%;
+    height: auto;
+}
+
+.filme h3 {
+    font-size: 1.4rem;
+    padding: 15px;
+    background-color: #333;
+    color: white;
+}
+
+.filme p {
+    padding: 0 15px 15px;
+    font-size: 1rem;
+    color: #555;
+}
+
+.filme .btn {
+    display: block;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    border-radius: 0 0 8px 8px;
+    transition: background-color 0.3s;
+}
+
+.filme .btn:hover {
+    background-color: #ff0;
+}
+
+/* Rodapé */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+footer .autores {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: #ddd;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    main {
+        padding: 20px 5%;
+    }
+
+    .filme {
+        width: 45%;
+    }
+}
+
+@media (max-width: 480px) {
+    .filme {
+        width: 100%;
+    }
+
+    header .logo h1 {
+        font-size: 2rem;
+    }
+
+    header .logo p {
+        font-size: 1rem;
+    }
+
+    header nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    header nav ul li a {
+        font-size: 1.2rem;
+    }
+}
