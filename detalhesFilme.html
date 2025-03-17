@@ -49,7 +49,7 @@
     </div>
 
     <script>
-    // 1. Definindo a chave da API do TMDb. Substitua pela sua própria chave.
+    // 1. Definindo a chave da API do TMDb.
     const apiKey = '1676d822605453cc5f4a2fa306cabe5d'; // Substitua pela sua chave da API TMDb
     
     // 2. Obtendo parâmetros da URL atual (query string).
@@ -108,27 +108,39 @@
             })
             .catch(error => console.error('Erro ao carregar trailer:', error)); // Caso haja erro, exibe no console.
 
-        // 16. Faz uma requisição para obter o elenco do filme.
-        fetch(apiUrlCast)
-            .then(response => response.json())  // Converte a resposta em formato JSON.
-            .then(data => {
-                // 17. Pega o elemento da lista de elenco na página HTML.
-                const castList = document.getElementById('castList');
-                castList.innerHTML = ''; // Limpa a lista de elenco antes de adicionar novos itens.
+			// 16. Faz uma requisição para obter o elenco do filme.
+			fetch(apiUrlCast)
+				.then(response => response.json())  // Converte a resposta em formato JSON.
+				.then(data => {
+					// 17. Pega o elemento da lista de elenco na página HTML.
+					const castList = document.getElementById('castList');
+					castList.innerHTML = ''; // Limpa a lista de elenco antes de adicionar novos itens.
 
-                // 18. Adiciona até 14 atores à lista de elenco (exibindo nome e papel no filme).
-                data.cast.slice(0, 14).forEach(actor => {
-                    const actorItem = document.createElement('div'); // Cria um novo elemento para o ator.
-                    actorItem.classList.add('cast-item'); // Adiciona uma classe CSS para estilizar.
-                    actorItem.innerHTML = `
-                        <img src="https://image.tmdb.org/t/p/w300_and_h450_bestv2${actor.profile_path}" alt="${actor.name}"> <!-- Imagem do ator -->
-                        <p>${actor.name}</p> <!-- Nome do ator -->
-                        <p>${actor.character}</p> <!-- Papel do ator no filme -->
-                    `;
-                    castList.appendChild(actorItem); // Adiciona o item à lista de elenco.
-                });
-            })
-            .catch(error => console.error('Erro ao carregar elenco:', error)); // Caso haja erro, exibe no console.
+					// 18. Adiciona até 14 atores à lista de elenco (exibindo nome e papel no filme).
+					data.cast.slice(0, 14).forEach(actor => {
+						const actorItem = document.createElement('div'); // Cria um novo elemento para o ator.
+						actorItem.classList.add('cast-item'); // Adiciona uma classe CSS para estilizar.
+
+						// Verifica se há uma imagem de ator. Se não, usa a imagem "Imagem não disponível".
+						let actorImage = '';
+						if (actor.profile_path) {
+							actorImage = `<img src="https://image.tmdb.org/t/p/w300_and_h450_bestv2${actor.profile_path}" alt="${actor.name}">`;
+						} else {
+							// Usando uma imagem online de "Imagem não disponível"
+							actorImage = '<img src="naodisponivel.jpg" alt="Imagem não disponível">'; 
+						}
+
+						actorItem.innerHTML = `
+							${actorImage}
+							<p>${actor.name}</p> <!-- Nome do ator -->
+							<p>${actor.character}</p> <!-- Papel do ator no filme -->
+						`;
+						castList.appendChild(actorItem); // Adiciona o item à lista de elenco.
+					});
+				})
+				.catch(error => console.error('Erro ao carregar elenco:', error)); // Caso haja erro, exibe no console.
+
+
     }
 
     // 19. Função que é chamada quando o botão de abrir trailer é clicado.
