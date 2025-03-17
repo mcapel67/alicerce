@@ -5,30 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Filme - Matrix Resurrections</title>
     <link rel="stylesheet" href="style.css">
-    <script src="popup.js"></script>
-    <style>
-        /* Estilo do popup */
-        .popup-content {
-            position: relative;
-            background-color: #fff;
-            padding: 20px; /* Adicionando padding para garantir que a borda não fique colada ao conteúdo */
-            border-radius: 10px;
-            max-width: 80%;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border: 20px solid #333; /* Borda de 20px ao redor do conteúdo */
-        }
-
-        /* Estilo do iframe (vídeo) */
-        .popup-content iframe {
-            width: 100%;
-            height: 450px; /* Ajuste a altura conforme necessário */
-            border-radius: 5px; /* Adiciona borda arredondada ao redor do iframe */
-            border: none; /* Remove qualquer borda padrão do iframe */
-        }
-    </style>    
+    <script src="popup.js"></script>   
 </head>
 <body>
     <header>
@@ -46,17 +23,70 @@
                 </div>
                 <p><strong>Lançamento:</strong> 2021</p>
                 <p><strong>Gênero:</strong> Ação, Ficção Científica</p>
-                <a href="https://www.themoviedb.org/movie/624860-the-matrix-resurrections" class="back-button" target="_blank">Ver no TMDb</a>
-                <button class="back-button" id="openTrailerBtn">Ver Trailer</button> <!-- Botão para abrir o popup -->
+                <button class="back-button" id="openTrailerBtn">Ver Trailer</button>
+            </div>
+        </div>
+
+        <!-- Exibir a média de votos (simulada) -->
+        <div class="average-rating" id="averageRating">
+            Média de Votos: <span id="averageStars">★★★★☆</span> (4.0/5)
+        </div>
+
+        <div class="rating-container">
+            <p class="rating-question">O que você achou do filme? Dê a sua opinião:</p>
+            <div class="star-rating" id="ratingStars">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
             </div>
         </div>
 
         <div class="synopsis">
             <h2>Sinopse</h2>
-            <p>Matrix Resurrections (2021) é o quarto filme da franquia Matrix, dirigido por Lana Wachowski. A trama se passa anos após os eventos do terceiro filme, Matrix Revolutions (2003), e segue o personagem Neo (Keanu Reeves), que agora vive uma vida comum como Thomas Anderson, um bem-sucedido empresário de jogos. No entanto, ele começa a ter visões e flashbacks que o fazem questionar sua realidade. Enquanto isso, ele se reencontra com Trinity (Carrie-Anne Moss), e ambos começam a descobrir que o mundo em que vivem não é real, sendo mais uma vez parte da Matrix. Com a ajuda de novos aliados, incluindo Morfeu (Yahya Abdul-Mateen II), eles buscam derrubar a realidade artificial criada pelas máquinas. O filme mistura elementos de ação, filosofia e tecnologia, mantendo o legado da franquia com cenas de combate icônicas e questionamentos sobre a natureza da realidade, identidade e o livre-arbítrio. Matrix Resurrections traz de volta a essência da saga com novos conceitos, enquanto explora as consequências da luta de Neo contra a Matrix e suas repercussões em um mundo mais avançado e desconhecido..</p>
+            <p>Matrix Resurrections (2021) é o quarto filme da franquia Matrix, dirigido por Lana Wachowski. A trama se passa anos após os eventos do terceiro filme, Matrix Revolutions (2003), e segue o personagem Neo (Keanu Reeves), que agora vive uma vida comum como Thomas Anderson, um bem-sucedido empresário de jogos. No entanto, ele começa a ter visões e flashbacks que o fazem questionar sua realidade. Enquanto isso, ele se reencontra com Trinity (Carrie-Anne Moss), e ambos começam a descobrir que o mundo em que vivem não é real, sendo mais uma vez parte da Matrix. Com a ajuda de novos aliados, incluindo Morfeu (Yahya Abdul-Mateen II), eles buscam derrubar a realidade artificial criada pelas máquinas. O filme mistura elementos de ação, filosofia e tecnologia, mantendo o legado da franquia com cenas de combate icônicas e questionamentos sobre a natureza da realidade, identidade e o livre-arbítrio. Matrix Resurrections traz de volta a essência da saga com novos conceitos, enquanto explora as consequências da luta de Neo contra a Matrix e suas repercussões em um mundo mais avançado e desconhecido.</p>
         </div>
-
-        <!-- Seção do Trailer (Popup) -->
+        <div class="cast">
+            <h2>Elenco Principal</h2>
+            <div class="cast-list">
+                <div class="cast-item">
+                    <img src="https://media.themoviedb.org/t/p/w138_and_h175_face/8RZLOyYGsoRe9p44q3xin9QkMHv.jpg" alt="Keanu Reeves">
+                    <p>Keanu Reeves</p>
+                    <p>Neo</p>
+                </div>
+                <div class="cast-item">
+                    <img src="https://media.themoviedb.org/t/p/w138_and_h175_face/xD4jTA3KmVp5Rq3aHcymL9DUGjD.jpg" alt="Carrie-Anne Moss">
+                    <p>Carrie-Anne Moss</p>
+                    <p>Trinity</p>
+                </div>
+                <div class="cast-item">
+                    <img src="https://media.themoviedb.org/t/p/w138_and_h175_face/a8LdstM4zzJwM2wXdmC6FU2oz7s.jpg">
+                    <p>Jessica Henwick</p>
+                    <p>Bugs</p>
+                </div>
+                <div class="cast-item">
+                    <img src="https://media.themoviedb.org/t/p/w138_and_h175_face/aBDebGZs2pAucyaK4EhHVJGm0Xu.jpg">
+                    <p>Yahya Abdul-Mateen II</p>
+                    <p>Morfeu</p>
+                </div>
+                <div class="cast-item">
+                    <img src="https://media.themoviedb.org/t/p/w138_and_h175_face/3kmnYKAzSc3Lp7iK5pcj97Hx9Cm.jpg">
+                    <p>Jonathan Groff</p>
+                    <p>Smith</p>
+                </div>      
+                <div class="cast-item">
+                    <img src="https://media.themoviedb.org/t/p/w138_and_h175_face/qZwbo23uaJU87NxE5RubbeeLTYh.jpg">
+                    <p>Neil Patrick Harris</p>
+                    <p>The Analyst</p>
+                </div>   
+                <div class="cast-item">
+                    <img src="https://media.themoviedb.org/t/p/w138_and_h175_face/vt1Z1Fsu7gjp4L0OHey9Aa79lWj.jpg">
+                    <p>Jada Pinkett Smith</p>
+                    <p>Niobe</p>
+                </div>                                                  
+            </div>
+        </div>
         <div class="popup" id="trailerPopup">
             <div class="popup-content">
                 <span class="popup-close" id="closePopupBtn">&times;</span>
@@ -65,47 +95,73 @@
             </div>
         </div>
 
-        <div class="cast">
-            <h2>Elenco Principal</h2>
-            <div class="cast-list">
-                <div class="cast-item">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpRo8fLSMqYGtQp8tWxZo9qNIruk0X1A2kVw&s" alt="Keanu Reeves">
-                    <p>Keanu Reeves</p>
-                    <p>Neo</p>
-                </div>
-                <div class="cast-item">
-                    <img src="https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcTMjiLcFT0UhFfkj9iMLG8-HQmzD9tMR5oOkjT3uhJ00SNhFRoUfiwXiNY6Gs4Ou_qia1HUL9Rt&s=19" alt="Carrie-Anne Moss">
-                    <p>Carrie-Anne Moss</p>
-                    <p>Trinity</p>
-                </div>
-                <div class="cast-item">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpRo8fLSMqYGtQp8tWxZo9qNIruk0X1A2kVw&s" alt="Yahya Abdul-Mateen II">
-                    <p>Yahya Abdul-Mateen II</p>
-                    <p>Morfeu</p>
-                </div>
-            </div>
-        </div>
-
         <a href="index.html" class="back-button">Voltar</a>
     </div>
-
     <script>
-        // Abre o popup quando o botão "Ver Trailer" é clicado
-        document.getElementById('openTrailerBtn').addEventListener('click', function() {
-            document.getElementById('trailerPopup').style.display = 'flex';
+        const apiKey = '1676d822605453cc5f4a2fa306cabe5d';
+        const movieId = '299534'; // ID do filme "Matrix Resurrections" no TMDB
+        const apiUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=pt-BR`;
+
+        // Função para obter detalhes do filme da API do TMDB
+        async function fetchMovieDetails() {
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                // Atualizar título do filme
+                document.getElementById('movieTitle').textContent = data.title;
+                
+                // Atualizar a imagem do poster
+                const moviePosterUrl = `https://image.tmdb.org/t/p/w600_and_h900_bestv2${data.poster_path}`;
+                document.getElementById('moviePoster').src = moviePosterUrl;
+
+                // Atualizar classificação
+                document.getElementById('movieRating').textContent = data.vote_average.toFixed(1) + ' / 10';
+
+                // Atualizar data de lançamento
+                document.getElementById('releaseDate').textContent = data.release_date;
+
+                // Atualizar gêneros
+                const genres = data.genres.map(genre => genre.name).join(', ');
+                document.getElementById('movieGenres').textContent = genres;
+
+                // Atualizar sinopse
+                document.getElementById('movieSynopsis').textContent = data.overview;
+
+                // Atualizar trailer (se disponível)
+                const trailerResponse = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}&language=pt-BR`);
+                const trailerData = await trailerResponse.json();
+                if (trailerData.results.length > 0) {
+                    const trailerKey = trailerData.results[0].key;
+                    const trailerUrl = `https://www.youtube.com/embed/${trailerKey}`;
+                    document.getElementById('movieTrailer').src = trailerUrl;
+                }
+            } catch (error) {
+                console.error('Erro ao carregar dados do filme:', error);
+            }
+        }
+
+        // Chamar a função para carregar os detalhes do filme ao carregar a página
+        fetchMovieDetails();
+
+        // Lidar com a interação do popup do trailer
+        const openPopupBtn = document.getElementById('openTrailerBtn');
+        const closePopupBtn = document.getElementById('closePopupBtn');
+        const popup = document.getElementById('trailerPopup');
+
+        openPopupBtn.addEventListener('click', function() {
+            popup.style.display = 'flex';  // Exibe o popup
         });
 
-        // Fecha o popup quando o botão de fechar é clicado
-        document.getElementById('closePopupBtn').addEventListener('click', function() {
-            document.getElementById('trailerPopup').style.display = 'none';
+        closePopupBtn.addEventListener('click', function() {
+            popup.style.display = 'none';  // Oculta o popup
         });
 
-        // Fecha o popup se clicar fora do conteúdo
-        window.addEventListener('click', function(event) {
-            if (event.target === document.getElementById('trailerPopup')) {
-                document.getElementById('trailerPopup').style.display = 'none';
+        popup.addEventListener('click', function(event) {
+            if (event.target === popup) {
+                popup.style.display = 'none';
             }
         });
-    </script>
-</body>
+    </script>    
+  </body>
 </html>
