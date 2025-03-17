@@ -49,81 +49,110 @@
     </div>
 
     <script>
-        const apiKey = '1676d822605453cc5f4a2fa306cabe5d'; // Substitua pela sua chave da API TMDb
-        const urlParams = new URLSearchParams(window.location.search);
-        const movieId = urlParams.get('id'); // Pega o parâmetro 'id' da URL
-        if (!movieId) {
-            console.error('ID do filme não encontrado na URL.');
+    // 1. Definindo a chave da API do TMDb. Substitua pela sua própria chave.
+    const apiKey = '1676d822605453cc5f4a2fa306cabe5d'; // Substitua pela sua chave da API TMDb
+    
+    // 2. Obtendo parâmetros da URL atual (query string).
+    const urlParams = new URLSearchParams(window.location.search);
+    const movieId = urlParams.get('id'); // Pega o parâmetro 'id' da URL
+    
+    // 3. Verifica se o parâmetro 'id' está presente na URL. Caso contrário, exibe erro no console.
+    if (!movieId) {
+        console.error('ID do filme não encontrado na URL.');
+    }
+    
+    // 4. Monta a URL para fazer requisição à API do TMDb para detalhes do filme.
+    const apiUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=pt-BR`;
+    
+    // 5. Monta a URL para buscar informações sobre o elenco do filme.
+    const apiUrlCast = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}&language=pt-BR`;
+    
+    // 6. Monta a URL para buscar vídeos relacionados ao filme, como trailers.
+    const apiUrlVideos = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}&language=pt-BR`;
+
+    // 7. Função para carregar detalhes do filme.
+    function loadMovieDetails() {
+        
+        // 8. Faz uma requisição para obter os detalhes do filme.
+        fetch(apiUrl)
+            .then(response => response.json())  // Converte a resposta em formato JSON.
+            .then(data => {
+                // 9. Atualiza a página com o título do filme.
+                document.getElementById('movieTitle').innerText = data.title;
+                
+                // 10. Exibe o ano de lançamento do filme (extraído da data de lançamento).
+                document.getElementById('movieReleaseDate').innerText = data.release_date.split('-')[0]; // Ano de lançamento
+                
+                // 11. Exibe os gêneros do filme, combinando os nomes dos gêneros em uma string.
+                document.getElementById('movieGenres').innerText = data.genres.map(genre => genre.name).join(', ');
+                
+                // 12. Exibe a sinopse do filme.
+                document.getElementById('movieSynopsis').innerText = data.overview;
+                
+                // 13. Exibe o pôster do filme, criando a URL da imagem.
+                document.getElementById('moviePoster').src = `https://image.tmdb.org/t/p/w300_and_h450_bestv2${data.poster_path}`;
+            })
+            .catch(error => console.error('Erro ao carregar detalhes do filme:', error)); // Caso haja erro, exibe no console.
+
+        // 14. Faz uma requisição para pegar o trailer do filme.
+        fetch(apiUrlVideos)
+            .then(response => response.json())
+            .then(data => {
+                // 15. Encontra o trailer que esteja hospedado no YouTube.
+                const trailer = data.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+                if (trailer) {
+                    window.trailerKey = trailer.key; // Armazena a chave do trailer no objeto 'window' para usá-la mais tarde.
+                } else {
+                    console.error('Trailer não encontrado.'); // Caso o trailer não seja encontrado, exibe no console.
+                }
+            })
+            .catch(error => console.error('Erro ao carregar trailer:', error)); // Caso haja erro, exibe no console.
+
+        // 16. Faz uma requisição para obter o elenco do filme.
+        fetch(apiUrlCast)
+            .then(response => response.json())  // Converte a resposta em formato JSON.
+            .then(data => {
+                // 17. Pega o elemento da lista de elenco na página HTML.
+                const castList = document.getElementById('castList');
+                castList.innerHTML = ''; // Limpa a lista de elenco antes de adicionar novos itens.
+
+                // 18. Adiciona até 14 atores à lista de elenco (exibindo nome e papel no filme).
+                data.cast.slice(0, 14).forEach(actor => {
+                    const actorItem = document.createElement('div'); // Cria um novo elemento para o ator.
+                    actorItem.classList.add('cast-item'); // Adiciona uma classe CSS para estilizar.
+                    actorItem.innerHTML = `
+                        <img src="https://image.tmdb.org/t/p/w300_and_h450_bestv2${actor.profile_path}" alt="${actor.name}"> <!-- Imagem do ator -->
+                        <p>${actor.name}</p> <!-- Nome do ator -->
+                        <p>${actor.character}</p> <!-- Papel do ator no filme -->
+                    `;
+                    castList.appendChild(actorItem); // Adiciona o item à lista de elenco.
+                });
+            })
+            .catch(error => console.error('Erro ao carregar elenco:', error)); // Caso haja erro, exibe no console.
+    }
+
+    // 19. Função que é chamada quando o botão de abrir trailer é clicado.
+    document.getElementById('openTrailerBtn').onclick = function() {
+        // 20. Verifica se há uma chave de trailer disponível.
+        if (window.trailerKey) {
+            // 21. Cria a URL para o trailer no YouTube.
+            const trailerUrl = `https://www.youtube.com/embed/${window.trailerKey}`;
+            document.getElementById('modalTrailer').src = trailerUrl; // Define o URL do trailer no iframe.
+            document.getElementById('trailerModal').style.display = 'flex'; // Exibe o modal para mostrar o trailer.
+        } else {
+            alert('Trailer não disponível'); // Exibe alerta caso o trailer não esteja disponível.
         }
-        const apiUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=pt-BR`;
-        const apiUrlCast = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}&language=pt-BR`;
-        const apiUrlVideos = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}&language=pt-BR`;
+    };
 
-        // Função para carregar os dados do filme
-        function loadMovieDetails() {
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('movieTitle').innerText = data.title;
-                    document.getElementById('movieReleaseDate').innerText = data.release_date.split('-')[0]; // Ano de lançamento
-                    document.getElementById('movieGenres').innerText = data.genres.map(genre => genre.name).join(', ');
-                    document.getElementById('movieSynopsis').innerText = data.overview;
-                    document.getElementById('moviePoster').src = `https://image.tmdb.org/t/p/w300_and_h450_bestv2${data.poster_path}`;
-                })
-                .catch(error => console.error('Erro ao carregar detalhes do filme:', error));
+    // 22. Função para fechar o modal de trailer quando o botão de fechar for clicado.
+    document.getElementById('closeTrailerBtn').onclick = function() {
+        document.getElementById('trailerModal').style.display = 'none'; // Fecha o modal de trailer.
+        document.getElementById('modalTrailer').src = ''; // Limpa o iframe ao fechar.
+    };
 
-            // Requisição para pegar o trailer do filme
-            fetch(apiUrlVideos)
-                .then(response => response.json())
-                .then(data => {
-                    const trailer = data.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
-                    if (trailer) {
-                        window.trailerKey = trailer.key;
-                    } else {
-                        console.error('Trailer não encontrado.');
-                    }
-                })
-                .catch(error => console.error('Erro ao carregar trailer:', error));
+    // 23. Carrega os detalhes do filme assim que a página for carregada.
+    window.onload = loadMovieDetails;
+</script>
 
-            // Requisição para pegar o elenco do filme
-            fetch(apiUrlCast)
-                .then(response => response.json())
-                .then(data => {
-                    const castList = document.getElementById('castList');
-                    castList.innerHTML = ''; // Limpar lista de elenco
-                    data.cast.slice(0, 14).forEach(actor => {
-                        const actorItem = document.createElement('div');
-                        actorItem.classList.add('cast-item');
-                        actorItem.innerHTML = `
-                            <img src="https://image.tmdb.org/t/p/w300_and_h450_bestv2${actor.profile_path}" alt="${actor.name}">
-                            <p>${actor.name}</p>
-                            <p>${actor.character}</p>
-                        `;
-                        castList.appendChild(actorItem);
-                    });
-                })
-                .catch(error => console.error('Erro ao carregar elenco:', error));
-        }
-
-        // Função para abrir o modal e mostrar o trailer
-        document.getElementById('openTrailerBtn').onclick = function() {
-            if (window.trailerKey) {
-                const trailerUrl = `https://www.youtube.com/embed/${window.trailerKey}`;
-                document.getElementById('modalTrailer').src = trailerUrl; // Coloca o link do trailer no modal
-                document.getElementById('trailerModal').style.display = 'flex'; // Exibe o modal
-            } else {
-                alert('Trailer não disponível');
-            }
-        };
-
-        // Função para fechar o modal
-        document.getElementById('closeTrailerBtn').onclick = function() {
-            document.getElementById('trailerModal').style.display = 'none'; // Fecha o modal
-            document.getElementById('modalTrailer').src = ''; // Limpa o iframe ao fechar
-        };
-
-        // Carregar os dados do filme ao carregar a página
-        window.onload = loadMovieDetails;
-    </script>
 </body>
 </html>
