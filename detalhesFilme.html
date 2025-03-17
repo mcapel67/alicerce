@@ -75,6 +75,8 @@
 		fetch(apiUrl)
 			.then(response => response.json())  // Converte a resposta em formato JSON.
 			.then(data => {
+
+                
 				// 9. Atualiza o título do filme na página.
 				document.getElementById('movieTitle').innerText = data.title;
 
