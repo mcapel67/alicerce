@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Filme</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Film Reviews</h1>
+        <p>Detalhes do filme</p>
+    </header>
+    <div class="container">
+        <div class="movie-header">
+            <img id="moviePoster" src="" alt="Capitão América">
+            <div class="movie-info">
+                <h1 id="movieTitle">Capitão América</h1>
+                <div class="rating">
+                    <strong>Classificação: </strong><span id="movieRating">6.8 / 10</span>
+                </div>
+                <p><strong>Lançamento:</strong> <span id="movieReleaseDate">2025</span></p>
+                <p><strong>Gênero:</strong> <span id="movieGenres">Ação, Ficção Científica</span></p>
+                <a id="tmdbLink" href="#" class="back-button" target="_blank">Ver no TMDb</a>
+                <button class="back-button" id="openTrailerBtn">Ver Trailer</button>
+            </div>
+        </div>
+        <div class="synopsis">
+            <h2>Sinopse</h2>
+            <p id="movieSynopsis">Carregando...</p>
+        </div>
+        <div class="cast">
+            <h2>Elenco Principal</h2>
+            <div id="castList" class="cast-list">
+                <!-- Os atores serão carregados aqui -->
+            </div>
+        </div>
+        <a href="index.html" class="back-button">Voltar</a>
+    </div>
+
+    <!-- Modal do Trailer -->
+    <div id="trailerModal" class="popup">
+        <div class="popup-content">
+            <!-- Botão de fechar ao lado do título -->
+            <button class="popup-close" id="closeTrailerBtn">&times;</button>
+            <h2>Assista ao Trailer</h2>
+            <!-- O iframe do trailer será carregado aqui -->
+            <iframe id="modalTrailer" src="" title="Trailer do Filme" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        const apiKey = '1676d822605453cc5f4a2fa306cabe5d'; // Substitua pela sua chave da API TMDb
+        const urlParams = new URLSearchParams(window.location.search);
+        const movieId = urlParams.get('id'); // Pega o parâmetro 'id' da URL
+        if (!movieId) {
+            console.error('ID do filme não encontrado na URL.');
+        }
+        const apiUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=pt-BR`;
+        const apiUrlCast = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}&language=pt-BR`;
+        const apiUrlVideos = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}&language=pt-BR`;
+
+        // Função para carregar os dados do filme
+        function loadMovieDetails() {
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('movieTitle').innerText = data.title;
+                    document.getElementById('movieReleaseDate').innerText = data.release_date.split('-')[0]; // Ano de lançamento
+                    document.getElementById('movieGenres').innerText = data.genres.map(genre => genre.name).join(', ');
+                    document.getElementById('movieSynopsis').innerText = data.overview;
+                    document.getElementById('moviePoster').src = `https://image.tmdb.org/t/p/w300_and_h450_bestv2${data.poster_path}`;
+                    document.getElementById('tmdbLink').href = `https://www.themoviedb.org/movie/${data.id}`;
+                })
+                .catch(error => console.error('Erro ao carregar detalhes do filme:', error));
+
+            // Requisição para pegar o trailer do filme
+            fetch(apiUrlVideos)
+                .then(response => response.json())
+                .then(data => {
+                    const trailer = data.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+                    if (trailer) {
+                        // Guardando a chave do trailer para ser usada no modal
+                        window.trailerKey = trailer.key;
+                    } else {
+                        console.error('Trailer não encontrado.');
+                    }
+                })
+                .catch(error => console.error('Erro ao carregar trailer:', error));
+
+            // Requisição para pegar o elenco do filme
+            fetch(apiUrlCast)
+                .then(response => response.json())
+                .then(data => {
+                    const castList = document.getElementById('castList');
+                    castList.innerHTML = ''; // Limpar lista de elenco
+                    data.cast.slice(0, 14).forEach(actor => {
+                        const actorItem = document.createElement('div');
+                        actorItem.classList.add('cast-item');
+                        actorItem.innerHTML = `
+                            <img src="https://image.tmdb.org/t/p/w300_and_h450_bestv2${actor.profile_path}" alt="${actor.name}">
+                            <p>${actor.name}</p>
+                            <p>${actor.character}</p>
+                        `;
+                        castList.appendChild(actorItem);
+                    });
+                })
+                .catch(error => console.error('Erro ao carregar elenco:', error));
+        }
+
+        // Função para abrir o modal e mostrar o trailer
+        document.getElementById('openTrailerBtn').onclick = function() {
+            if (window.trailerKey) {
+                const trailerUrl = `https://www.youtube.com/embed/${window.trailerKey}`;
+                document.getElementById('modalTrailer').src = trailerUrl; // Coloca o link do trailer no modal
+                document.getElementById('trailerModal').style.display = 'flex'; // Exibe o modal
+            } else {
+                alert('Trailer não disponível');
+            }
+        };
+
+        // Função para fechar o modal
+        document.getElementById('closeTrailerBtn').onclick = function() {
+            document.getElementById('trailerModal').style.display = 'none'; // Fecha o modal
+            document.getElementById('modalTrailer').src = ''; // Limpa o iframe ao fechar
+        };
+
+        // Carregar os dados do filme ao carregar a página
+        window.onload = loadMovieDetails;
+    </script>
+</body>
+</html>
