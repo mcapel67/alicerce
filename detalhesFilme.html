@@ -10,7 +10,7 @@
 <body>
     <header>
         <h1>Film Reviews</h1>
-        <p>Detalhes do filme</p>
+        <p id="titulo">Detalhes do filme</p>
     </header>
     <div class="container">
         <div class="movie-header">
@@ -99,7 +99,9 @@
 
                 // 9. Atualiza o título do filme na página.
                 document.getElementById('movieTitle').innerText = data.title;
-
+                // 9.1 Atualiza o título do filme no H1
+                document.getElementById('titulo').innerText = data.title;
+                
                 // 10. Atualiza o título da aba do navegador (<title>).
                 document.title = data.title;
 
