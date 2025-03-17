@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Descrição do filme">
     <title>Detalhes do Filme</title> <!-- Título inicial -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -20,7 +21,11 @@
                     <strong>Classificação: </strong><span id="movieRating">6.8 / 10</span>
                 </div>
                 <p><strong>Lançamento:</strong> <span id="movieReleaseDate">2025</span></p>
-                <p><strong>Gênero:</strong> <span id="movieGenres">Ação, Ficção Científica</span></p>                
+                <p><strong>Gênero:</strong> <span id="movieGenres">Ação, Ficção Científica</span></p>
+                <p><strong>Idioma Original:</strong> <span id="movieOriginalLanguage">Inglês</span></p>
+                <p><strong>Idiomas Disponíveis:</strong> <span id="movieLanguages">Inglês</span></p>
+                <p><strong>Status:</strong> <span id="movieStatus">Lançado</span></p>
+                <p><strong>Diretor:</strong> <span id="movieDirector">Carregando...</span></p> <!-- Novo campo para o diretor -->
                 <button class="back-button" id="openTrailerBtn">Ver Trailer</button>
             </div>
         </div>
@@ -70,56 +75,80 @@
     // 6. Monta a URL para buscar vídeos relacionados ao filme, como trailers.
     const apiUrlVideos = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}&language=pt-BR`;
 
-	function loadMovieDetails() {
-		// 8. Faz uma requisição para obter os detalhes do filme.
-		fetch(apiUrl)
-			.then(response => response.json())  // Converte a resposta em formato JSON.
-			.then(data => {
+    // Função para traduzir o status do filme para português
+    function translateStatus(status) {
+        const statusMap = {
+            'Released': 'Lançado',
+            'Rumored': 'Rumores',
+            'In Production': 'Em Produção',
+            'Planned': 'Planejado',
+            'Post Production': 'Pós-Produção',
+            'Canceled': 'Cancelado',
+            'Abandoned': 'Abandonado'
+        };
 
-                
-				// 9. Atualiza o título do filme na página.
-				document.getElementById('movieTitle').innerText = data.title;
+        return statusMap[status] || status; // Caso não encontre, retorna o status original
+    }
 
-				// 10. Atualiza o título da aba do navegador (<title>).
-                // document.getElementsByName('<title>').innerText = data.title;  // Atualiza o título da aba
-                document.title = data.title;  // Atualiza o título da aba
-				
-				// Verifique se o título foi atualizado corretamente no console
-				console.log("Título da aba atualizado para:", document.title);
+    function loadMovieDetails() {
+        // 8. Faz uma requisição para obter os detalhes do filme.
+        fetch(apiUrl)
+            .then(response => response.json())  // Converte a resposta em formato JSON.
+            .then(data => {
+                console.log("Dados completos do filme:", data); // Imprime todos os dados retornados pela API
 
-				// 11. Exibe o ano de lançamento do filme (extraído da data de lançamento).
-				document.getElementById('movieReleaseDate').innerText = data.release_date.split('-')[0]; // Ano de lançamento
+                // 9. Atualiza o título do filme na página.
+                document.getElementById('movieTitle').innerText = data.title;
 
-				// 12. Exibe os gêneros do filme, combinando os nomes dos gêneros em uma string.
-				document.getElementById('movieGenres').innerText = data.genres.map(genre => genre.name).join(', ');
+                // 10. Atualiza o título da aba do navegador (<title>).
+                document.title = data.title;
 
-				// 13. Exibe a sinopse do filme.
-				document.getElementById('movieSynopsis').innerText = data.overview;
+                // 11. Exibe o ano de lançamento do filme (extraído da data de lançamento).
+                document.getElementById('movieReleaseDate').innerText = data.release_date.split('-')[0]; // Ano de lançamento
 
-				// 14. Exibe o pôster do filme, criando a URL da imagem.
-				document.getElementById('moviePoster').src = `https://image.tmdb.org/t/p/w300_and_h450_bestv2${data.poster_path}`;
+                // 12. Exibe os gêneros do filme, combinando os nomes dos gêneros em uma string.
+                document.getElementById('movieGenres').innerText = data.genres.map(genre => genre.name).join(', ');
+
+                // 13. Exibe a sinopse do filme.
+                document.getElementById('movieSynopsis').innerText = data.overview;
+
+                // 14. Exibe o pôster do filme, criando a URL da imagem.
+                document.getElementById('moviePoster').src = `https://image.tmdb.org/t/p/w300_and_h450_bestv2${data.poster_path}`;
+
+                // 15. Exibe o idioma original do filme.
+                document.getElementById('movieOriginalLanguage').innerText = data.original_language;
+
+                // 16. Exibe o status do filme (em português).
+                const statusInPortuguese = translateStatus(data.status);
+                document.getElementById('movieStatus').innerText = statusInPortuguese;
+
+                // 17. Atualiza a classificação (vote_average) do filme com uma casa decimal.
+                let rating = data.vote_average.toFixed(1); // Arredonda para uma casa decimal
+                document.getElementById('movieRating').innerText = `${rating} / 10`;
+
+                // 18. Exibe os idiomas disponíveis no filme
+                document.getElementById('movieLanguages').innerText = data.spoken_languages.map(lang => lang.name).join(', ');
 
                 // Atualiza a descrição meta
-                const metaDescription = document.querySelector('meta[name="description"]');
-                metaDescription.setAttribute('content', data.overview); // Atualiza a descrição do filme
-            
-				
-				// Se não encontrar a tag description, cria uma nova
-				if (!metaDescription) {
-					metaDescription = document.createElement('meta');
-					metaDescription.name = "description";
-					document.head.appendChild(metaDescription);
-				}
-				
-				// Atualiza o conteúdo da tag description
-				metaDescription.content = description;
-			})
-			.catch(error => {
-				console.error('Erro ao carregar detalhes do filme:', error); // Caso haja erro, exibe no console.
-				// Caso falhe, defina um título padrão
-				document.title = "Detalhes do Filme - Erro ao carregar"; // Título padrão em caso de erro
-			});
+                let metaDescription = document.querySelector('meta[name="description"]');
+                
+                // Verifica se a tag meta description existe
+                if (!metaDescription) {
+                    metaDescription = document.createElement('meta');
+                    metaDescription.name = "description";
+                    document.head.appendChild(metaDescription);
+                }
+
+                // Atualiza o conteúdo da tag description
+                metaDescription.setAttribute('content', data.overview);
+            })
+            .catch(error => {
+                console.error('Erro ao carregar detalhes do filme:', error); // Caso haja erro, exibe no console.
+                // Caso falhe, defina um título padrão
+                document.title = "Detalhes do Filme - Erro ao carregar"; // Título padrão em caso de erro
+            });
     }
+
     // 16. Faz uma requisição para pegar o trailer do filme.
     fetch(apiUrlVideos)
         .then(response => response.json())
@@ -140,6 +169,9 @@
         .then(data => {
             // 19. Pega o elemento da lista de elenco na página HTML.
             const castList = document.getElementById('castList');
+            const director = data.crew.find(person => person.job === 'Director'); // Encontrando o diretor
+            document.getElementById('movieDirector').innerText = director ? director.name : 'Desconhecido'; // Exibe o nome do diretor
+            
             castList.innerHTML = ''; // Limpa a lista de elenco antes de adicionar novos itens.
 
             // 20. Adiciona até 14 atores à lista de elenco (exibindo nome e papel no filme).
