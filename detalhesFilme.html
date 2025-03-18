@@ -158,9 +158,9 @@
             // 17. Encontra o trailer que esteja hospedado no YouTube.
             const trailer = data.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
             if (trailer) {
-                window.trailerKey = trailer.key; // Armazena a chave do trailer no objeto 'window' para usá-la mais tarde.
-            } else {
-                console.error('Trailer não encontrado.'); // Caso o trailer não seja encontrado, exibe no console.
+                window.trailerKey = trailer.key; // Armazena a chave do trailer no objeto 'window' para usá-la mais tarde.                
+            } else {                
+                console.error('Trailer não encontrado.'); // Caso o trailer não seja encontrado, exibe no console.                
             }
         })
         .catch(error => console.error('Erro ao carregar trailer:', error)); // Caso haja erro, exibe no console.
@@ -203,6 +203,18 @@
     // 21. Função que é chamada quando o botão de abrir trailer é clicado.
     document.getElementById('openTrailerBtn').onclick = function() {
         // 22. Verifica se há uma chave de trailer disponível.
+        if (movieId === '1003598') {
+            window.trailerKey = 'V-G54qlNZMk';
+        } else if (movieId === '1047884') {
+            window.trailerKey = 'mGZWTELgauM';
+        } else if (movieId === '2277') {
+            window.trailerKey = 'yfDlQ-Q12rg';
+        } else if (movieId === '8346') {
+            window.trailerKey = '_1L9l4tewaI';
+        } else if (movieId === '18240') {
+            window.trailerKey = 'c1ROrNQITRw';
+        }
+
         if (window.trailerKey) {
             // 23. Cria a URL para o trailer no YouTube.
             const trailerUrl = `https://www.youtube.com/embed/${window.trailerKey}`;
