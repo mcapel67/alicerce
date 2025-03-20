@@ -60,6 +60,10 @@
     // 2. Obtendo parâmetros da URL atual (query string).
     const urlParams = new URLSearchParams(window.location.search);
     const movieId = urlParams.get('id'); // Pega o parâmetro 'id' da URL
+    var qtdAtores = urlParams.get('qtd'); // Pega o parâmetro 'id' da URL
+    if (qtdAtores === null) {
+        qtdAtores = 14; // Valor padrão
+        }
     
     // 3. Verifica se o parâmetro 'id' está presente na URL. Caso contrário, exibe erro no console.
     if (!movieId) {
@@ -176,8 +180,8 @@
             
             castList.innerHTML = ''; // Limpa a lista de elenco antes de adicionar novos itens.
 
-            // 20. Adiciona até 14 atores à lista de elenco (exibindo nome e papel no filme).
-            data.cast.slice(0, 14).forEach(actor => {
+            // 20. Mostra a quantidade atores de acordo com o parametro qtdAtores (exibindo nome e papel no filme).
+            data.cast.slice(0, qtdAtores).forEach(actor => {
                 const actorItem = document.createElement('div'); // Cria um novo elemento para o ator.
                 actorItem.classList.add('cast-item'); // Adiciona uma classe CSS para estilizar.
 
